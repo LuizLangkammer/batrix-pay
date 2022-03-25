@@ -8,7 +8,7 @@ import ListItem from '../ListItem'
 import AsyncStorageService from '../../services/storage'
 
 
-export default function MonthDetail({data, updateData}) {
+export default function MonthDetail({data, updateData, navigation}) {
             
 
     async function addEarning(){
@@ -21,21 +21,8 @@ export default function MonthDetail({data, updateData}) {
     }
 
     async function addSpent(){
-        const spent = {
-            name: "Moto",
-            details: {
-                value: 10.88,
-                name: "Abastecimento",
-                data: new Date (),
-                description: "No description"
-            }
-        }
-        const result = await AsyncStorageService.addSpent(spent);
-        if(!result){
-            //error management
-            return
-        }
-        data = result;
+        console.log("oi")
+        navigation.navigate("SpentForm");
     }
 
     return (
@@ -60,11 +47,11 @@ export default function MonthDetail({data, updateData}) {
                     keyExtractor={(item,index) => index} />
             </View>
             <View style={GlobalStyles.modalHeaderContainer}>
-            <View style={[styles.circle,styles.bkRed]}>
+            <TouchableOpacity style={[styles.circle,styles.bkRed]} onPress={()=>{addSpent()}}>
                     <Entypo name={'minus'} color={Color.red} size={30} />
-                </View>
+                </TouchableOpacity>
                 <View style={{flex:1}}/>
-                <TouchableOpacity style={[styles.rectangle, styles.bkRed]} onPress={()=>{addSpent()}}>
+                <TouchableOpacity style={[styles.rectangle, styles.bkRed]} >
                     <Text style={[styles.valueText,styles.red]}>R$ {data.earnings}</Text>
                 </TouchableOpacity>
             </View>
